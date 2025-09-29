@@ -15,6 +15,29 @@ import {
 } from './aem.js';
 
 /**
+ * Tags loading variables and functions
+ */
+let tagsLoaded = false;
+
+function loadTags() {
+  if (tagsLoaded) return; // Prevent duplicate loading
+
+  try {
+    const script = document.createElement('script');
+    script.src = 'https://assets.adobedtm.com/075dc62c985c/9f33a4631af8/launch-056d6498c666-development.min.js';
+    script.async = true;
+    script.onerror = () => { /* Error loading Tags */ };
+    script.onload = () => {
+      /* Tags loaded successfully */
+      tagsLoaded = true;
+    };
+    document.head.appendChild(script);
+  } catch (error) {
+    // Error in loadTags
+  }
+}
+
+/**
  * Initialize Adobe Client Data Layer
  */
 function initializeDataLayer() {
@@ -144,10 +167,10 @@ function addClickListeners(container) {
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
   if (
     h1
     && picture
+    // eslint-disable-next-line no-bitwise
     && h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING
   ) {
     const section = document.createElement('div');
@@ -267,29 +290,6 @@ function loadDelayed() {
     return import('./delayed.js');
   }, 1000); // 3秒から1秒に短縮
   // load anything that can be postponed to the latest here
-}
-
-/**
- * Load Tags(Launch) safely
- */
-let tagsLoaded = false;
-
-function loadTags() {
-  if (tagsLoaded) return; // Prevent duplicate loading
-
-  try {
-    const script = document.createElement('script');
-    script.src = 'https://assets.adobedtm.com/075dc62c985c/9f33a4631af8/launch-056d6498c666-development.min.js';
-    script.async = true;
-    script.onerror = () => { /* Error loading Tags */ };
-    script.onload = () => {
-      /* Tags loaded successfully */
-      tagsLoaded = true;
-    };
-    document.head.appendChild(script);
-  } catch (error) {
-    // Error in loadTags
-  }
 }
 
 async function loadPage() {

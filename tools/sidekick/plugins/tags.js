@@ -3,7 +3,12 @@
  * Displays current page tags and allows tag management
  */
 
-import { PLUGIN_EVENTS } from 'https://www.aem.live/tools/sidekick/library/events/events.js';
+// PLUGIN_EVENTS constants (fallback for external URL import)
+const PLUGIN_EVENTS = {
+  SHOW_LOADER: 'show-loader',
+  HIDE_LOADER: 'hide-loader',
+  TOAST: 'toast',
+};
 
 export default {
   title: 'Tags',
