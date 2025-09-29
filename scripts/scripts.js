@@ -32,8 +32,8 @@ function initializeDataLayer() {
       identification: {
         core: {
           ecid:
-            sessionStorage.getItem('com.adobe.reactor.dataElements.ECID') ||
-            null,
+            sessionStorage.getItem('com.adobe.reactor.dataElements.ECID')
+            || null,
         },
       },
     },
@@ -66,7 +66,7 @@ function sendPageViewEvent() {
   });
 
   pageViewSent = true;
-  console.log('PageView event sent to Adobe Data Layer');
+  // PageView event sent to Adobe Data Layer
 }
 
 /**
@@ -102,12 +102,7 @@ export function sendCustomEvent(
     },
   });
 
-  console.log(`${eventName} event sent to Adobe Data Layer:`, {
-    elementType,
-    elementId: elementId || target.id || target.className || 'unknown',
-    elementText,
-    ...additionalData,
-  });
+  // Event sent to Adobe Data Layer
 }
 
 /**
@@ -151,9 +146,9 @@ function buildHeroBlock(main) {
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
   if (
-    h1 &&
-    picture &&
-    h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING
+    h1
+    && picture
+    && h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING
   ) {
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));
@@ -167,8 +162,7 @@ function buildHeroBlock(main) {
 async function loadFonts() {
   await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
   try {
-    if (!window.location.hostname.includes('localhost'))
-      sessionStorage.setItem('fonts-loaded', 'true');
+    if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
   } catch (e) {
     // do nothing
   }
@@ -285,17 +279,16 @@ function loadTags() {
 
   try {
     const script = document.createElement('script');
-    script.src =
-      'https://assets.adobedtm.com/075dc62c985c/9f33a4631af8/launch-056d6498c666-development.min.js';
+    script.src = 'https://assets.adobedtm.com/075dc62c985c/9f33a4631af8/launch-056d6498c666-development.min.js';
     script.async = true;
-    script.onerror = (err) => console.error('Error loading Tags:', err);
+    script.onerror = () => { /* Error loading Tags */ };
     script.onload = () => {
-      console.log('Tags loaded successfully');
+      /* Tags loaded successfully */
       tagsLoaded = true;
     };
     document.head.appendChild(script);
   } catch (error) {
-    console.error('Error in loadTags:', error);
+    // Error in loadTags
   }
 }
 

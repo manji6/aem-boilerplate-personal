@@ -17,7 +17,7 @@ export default {
  * @param {String} query If search is active, the current search query
  * @param {Object} context contains any properties set when the plugin was registered
  */
-export async function decorate(container, data, query, context) {
+export async function decorate(container, data, query) {
   // Show loader
   container.dispatchEvent(new CustomEvent(PLUGIN_EVENTS.SHOW_LOADER));
 
@@ -72,8 +72,7 @@ export async function decorate(container, data, query, context) {
       if (tagName) {
         const tagsContainer = container.querySelector('#tags-container');
         const newTag = document.createElement('span');
-        newTag.style.cssText =
-          'background: #e9ecef; padding: 4px 8px; border-radius: 4px; margin-right: 8px; margin-bottom: 8px; display: inline-block;';
+        newTag.style.cssText = 'background: #e9ecef; padding: 4px 8px; border-radius: 4px; margin-right: 8px; margin-bottom: 8px; display: inline-block;';
         newTag.innerHTML = `
           ${tagName}
           <button onclick="this.parentElement.remove()" style="background: none; border: none; margin-left: 8px; cursor: pointer;">×</button>
@@ -99,7 +98,7 @@ export async function decorate(container, data, query, context) {
       tagsContainer.innerHTML = `<p>Searching for tags containing: "${query}"</p>`;
     }
   } catch (error) {
-    console.error('Error in Tags plugin:', error);
+    // Error in Tags plugin
     container.dispatchEvent(
       new CustomEvent(PLUGIN_EVENTS.TOAST, {
         detail: { message: 'Error loading tags plugin', variant: 'negative' },
