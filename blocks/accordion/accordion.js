@@ -4,7 +4,7 @@
  * https://www.hlx.live/developer/block-collection/accordion
  */
 
-import { sendClickEvent, sendCustomEvent } from '../../scripts/scripts.js';
+import { sendCustomEvent } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
     [...block.children].forEach((row, index) => {
